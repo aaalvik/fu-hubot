@@ -63,9 +63,9 @@ module.exports = robot => {
 
             console.log(fremme1);
 
-            const first = `🏃‍♀️ *${minutter1} minutter* (fremme ${fremme1})`;
-            const second = `🚶‍♀️ *${minutter2} minutter* (fremme ${fremme2})`;
-            const third = `🐌 *${minutter3} minutter* (fremme ${fremme3})`;
+            const first = `🏃‍♀️ *om ${minutter1} minutter* (fremme ${fremme1})`;
+            const second = `🚶‍♀️ *om ${minutter2} minutter* (fremme ${fremme2})`;
+            const third = `🐌 *om ${minutter3} minutter* (fremme ${fremme3})`;
             
             res.send(`${first}\n${second}\n${third}`);
             }
