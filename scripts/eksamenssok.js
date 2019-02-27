@@ -14,11 +14,11 @@ module.exports = robot => {
             .find('.uib-study-exam-assessment dt:first-of-type + dd')
             .text()
             .split(/\s*,\s+/);
-          const sted = $(element)
+          const stedText = $(element)
             .find('.uib-study-exam-assessment')
-            .text()
-            .replace(/^.*Sted\s*(.*)/gs, '$1')
-            .trim();
+            .text();
+          const sted = (stedText.includes('Sted') ? stedText.replace(/^.*Sted\s*(.*)/gs, '$1').trim() : 'Ikke gitt enda.');
+
           return {
             navn: $(element)
               .find('.exam-list-title')
@@ -36,7 +36,7 @@ module.exports = robot => {
         .get();
       const valgtEmne = fag.find(f => f.emnekode === emne);
       res.send(
-        `${valgtEmne.navn}: ${valgtEmne.dato} kl ${valgtEmne.tidspunkt} på ${
+        `${valgtEmne.navn}: ${valgtEmne.dato} kl ${valgtEmne.tidspunkt}. Sted: ${
           valgtEmne.sted
         }`
       );
