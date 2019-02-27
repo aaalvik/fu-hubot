@@ -5,6 +5,12 @@ const URL = 'https://www.uib.no/student/eksamensplan/matnat';
 module.exports = robot => {
   robot.respond(/eksamen (\w+)/, res => {
     const emne = (res.match[1]).toUpperCase();
+
+    if (!/^[A-Z]{3,4}[0-9]{3}$/.test(emne)) {
+      res.send('Ukjent fagkode');
+    }
+
+    else {
     robot.http(URL).get()((error, response, htmlBody) => {
       const $ = cheerio.load(htmlBody);
 
@@ -35,10 +41,16 @@ module.exports = robot => {
         })
         .get();
       const valgtEmne = fag.find(f => f.emnekode === emne);
-      const klokka = valgtEmne.tidspunkt ? `${valgtEmne.tidspunkt}` : `🤷‍♀️`;
-      res.send(
-        `${valgtEmne.navn}: *${valgtEmne.dato}* kl ${klokka}. Sted: ${valgtEmne.sted}`
-      );
+
+      if (!valgtEmne) {
+        res.send('Ukjent fagkode');
+      } else {
+        const klokka = valgtEmne.tidspunkt ? `${valgtEmne.tidspunkt}` : `🤷‍♀️`;
+        res.send(
+          `${valgtEmne.navn}: *${valgtEmne.dato}* kl ${klokka}. Sted: ${valgtEmne.sted}`
+        );
+      }
     });
+  }
   });
 };
