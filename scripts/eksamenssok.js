@@ -17,7 +17,7 @@ module.exports = robot => {
           const stedText = $(element)
             .find('.uib-study-exam-assessment')
             .text();
-          const sted = (stedText.includes('Sted') ? stedText.replace(/^.*Sted\s*(.*)/gs, '$1').trim() : 'Ikke oppgitt enda.');
+          const sted = (stedText.includes('Sted') ? stedText.replace(/^.*Sted\s*(.*)/gs, '$1').trim() : '🤷‍♀️');
 
           return {
             navn: $(element)
@@ -35,9 +35,9 @@ module.exports = robot => {
         })
         .get();
       const valgtEmne = fag.find(f => f.emnekode === emne);
-      const klokka = valgtEmne.tidspunkt ? ` kl ${valgtEmne.tidspunkt}` : ``;
+      const klokka = valgtEmne.tidspunkt ? `${valgtEmne.tidspunkt}` : `🤷‍♀️`;
       res.send(
-        `${valgtEmne.navn}: ${valgtEmne.dato}${klokka}. Sted: ${valgtEmne.sted}`
+        `${valgtEmne.navn}: *${valgtEmne.dato}* kl ${klokka}. Sted: ${valgtEmne.sted}`
       );
     });
   });
