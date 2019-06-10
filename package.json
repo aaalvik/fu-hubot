@@ -1,5 +1,9 @@
 {
   "name": "chatops-101",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aaalvik/minbot.git"
+  },
   "version": "0.0.0",
   "scripts": {
     "start": "./bin/hubot",
